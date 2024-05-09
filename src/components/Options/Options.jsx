@@ -2,25 +2,21 @@
 
 // import Feedback from "../Feedback/Feedback";
 
-const Options = ({ updateFeedback, totalFeedback, setFeedbacks }) => {
+const Options = ({ updateFeedback, totalFeedback, resetFeedback }) => {
   return (
     <div>
       <ul>
         <li>
-          <button onClick={updateFeedback}>Good</button>
+          <button onClick={() => updateFeedback('good')}>Good</button>
         </li>
         <li>
-          <button onClick={updateFeedback}>Neutral</button>
+          <button onClick={() => updateFeedback('neutral')}>Neutral</button>
         </li>
         <li>
-          <button onClick={updateFeedback}>Bad</button>
+          <button onClick={() => updateFeedback('bad')}>Bad</button>
         </li>
       </ul>
-      {totalFeedback !== 0 && (
-        <button onClick={() => setFeedbacks({ good: 0, bad: 0, neutral: 0 })}>
-          Reset
-        </button>
-      )}
+      {totalFeedback !== 0 && <button onClick={resetFeedback}>Reset</button>}
     </div>
   );
 };

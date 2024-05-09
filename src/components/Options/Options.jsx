@@ -1,21 +1,26 @@
 // import { useState } from "react";
 
-const Options = () => {
+// import Feedback from "../Feedback/Feedback";
 
-
-return (
-    <ul>
+const Options = (updateFeedback, totalFeedback, setFeedbacks) => {
+  return (
+    <div>
+      <ul>
         <li>
-            <button onClick={updateGoods}>Good</button>
+          <button onClick={updateFeedback}>Good</button>
         </li>
         <li>
-            <button onClick={updateNeutrals}>Neutral</button>
+          <button onClick={updateFeedback}>Neutral</button>
         </li>
         <li>
-            <button onClick={updateBads}>Bad</button>
+          <button onClick={updateFeedback}>Bad</button>
         </li>
-    </ul>
-)
-}
+      </ul>
+      {totalFeedback !== 0 && (
+        <button onClick={() => setFeedbacks(0)}>Reset</button>
+      )}
+    </div>
+  );
+};
 
 export default Options;

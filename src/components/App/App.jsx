@@ -1,57 +1,58 @@
-import { useState } from "react";
-import Description from "../Description/Description";
-import Feedback from "../Feedback/Feedback";
-import Options from "../Options/Options";
+import { useState, useEffect } from 'react';
+import Description from '../Description/Description';
+import Feedback from '../Feedback/Feedback';
+import Options from '../Options/Options';
+import Notification from '../Notification/Notification';
 
 function App() {
+  //? useState
+  const [feedbacks, setFeedbacks] = useState(() => {
+    const savedFeedbacks = JSON.parse(localStorage.getItem('feedbacks'));
 
-  const [feedbacks, setFeedbacks] = useState({
+    if (savedFeedbacks !== null) {
+      return savedFeedbacks;
+    }
+    return {
       good: 0,
       neutral: 0,
       bad: 0,
+    };
   });
 
+  //? useEffect
+  useEffect(() => {
+    window.localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+  }, [feedbacks]);
+
   const updateFeedback = feedbackType => {
-    // Тут використовуй сеттер, щоб оновити стан
     setFeedbacks({
       ...feedbacks,
-      feedbackType: feedbacks.feedbackType + 1,
+      [feedbackType]: feedbacks[feedbackType] + 1,
     });
-  }
+  };
 
-
-  // const updateGoods =() => {
-  //   setFeedbacks({
-  //     ...feedbacks,
-  //     good: feedbacks.good + 1,
-  //   });
-  // };
-
-  // const updateNeutrals =() => {
-  //   setFeedbacks({
-  //     ...feedbacks,
-  //     neutral: feedbacks.neutral + 1,
-  //   });
-  // };
-
-  // const updateBads = () => {
-  //   setFeedbacks({
-  //     ...feedbacks,
-  //     bad: feedbacks.bad + 1,
-  //   });
-  // };
+  const totalFeedback = feedbacks.good + feedbacks.neutral + feedbacks.bad;
 
   return (
-  <>
-    <Description />
-    <Options feedbackType={feedbackType}updateFeedback={updateFeedback}
-    // updateGoods={updateGoods} 
-    // updateNeutrals={updateNeutrals} 
-    // updateBads={updateBads}
-    />
-    <Feedback goods={feedbacks.good} neutrals={feedbacks.neutral} bads={feedbacks.bad}/>
-  </>
-)
+    <>
+      <Description />
+      <Options
+        updateFeedback={updateFeedback}
+        totalFeedback={totalFeedback}
+        setFeedbacks={setFeedbacks}
+      />
+      {totalFeedback !== 0 ? (
+        <Feedback
+          goods={feedbacks.good}
+          neutrals={feedbacks.neutral}
+          bads={feedbacks.bad}
+          totalFeedback={totalFeedback}
+        />
+      ) : (
+        <Notification />
+      )}
+    </>
+  );
 }
 
 export default App;

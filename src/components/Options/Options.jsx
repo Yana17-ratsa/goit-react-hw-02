@@ -2,7 +2,7 @@
 
 // import Feedback from "../Feedback/Feedback";
 
-const Options = (updateFeedback, totalFeedback, setFeedbacks) => {
+const Options = ({ updateFeedback, totalFeedback, setFeedbacks }) => {
   return (
     <div>
       <ul>
@@ -17,7 +17,9 @@ const Options = (updateFeedback, totalFeedback, setFeedbacks) => {
         </li>
       </ul>
       {totalFeedback !== 0 && (
-        <button onClick={() => setFeedbacks(0)}>Reset</button>
+        <button onClick={() => setFeedbacks({ good: 0, bad: 0, neutral: 0 })}>
+          Reset
+        </button>
       )}
     </div>
   );

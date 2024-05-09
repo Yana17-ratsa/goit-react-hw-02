@@ -7,10 +7,10 @@ import Notification from '../Notification/Notification';
 function App() {
   //? useState
   const [feedbacks, setFeedbacks] = useState(() => {
-    const savedFeedbacks = JSON.parse(localStorage.getItem('feedbacks'));
+    const savedFeedbacks = window.localStorage.getItem('feedbacks');
 
     if (savedFeedbacks !== null) {
-      return savedFeedbacks;
+      return JSON.parse(savedFeedbacks);
     }
     return {
       good: 0,
@@ -49,7 +49,7 @@ function App() {
           totalFeedback={totalFeedback}
         />
       ) : (
-        <Notification />
+        <Notification totalFeedback={totalFeedback} />
       )}
     </>
   );

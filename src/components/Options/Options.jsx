@@ -1,7 +1,3 @@
-// import { useState } from "react";
-
-// import Feedback from "../Feedback/Feedback";
-
 const Options = ({ updateFeedback, totalFeedback, resetFeedback }) => {
   return (
     <div>
